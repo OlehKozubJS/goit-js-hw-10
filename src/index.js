@@ -2,75 +2,56 @@ const breedSelect = document.querySelector(".breed-select");
 const loader = document.querySelector(".loader");
 const error = document.querySelector(".error");
 const catInfo = document.querySelector(".cat-info");
+const breedImage = document.querySelector(".breed-image");
+const breedDescription = document.querySelector(".breed-description");
+const breedTemperament = document.querySelector(".breed-temperament");
 
-/*
-
-"api_key=live_iTXFzPkHdC4oTgN59kH3GxZuT9eSiCYByP1BBv24lnnQqDZPMjk0iJuaj0bMHA4W"
-
-"https://api.thecatapi.com/v1/breeds"
-
-*/
-
-const url = `https://api.thecatapi.com/v1/breeds`;
-const api_key = "live_iTXFzPkHdC4oTgN59kH3GxZuT9eSiCYByP1BBv24lnnQqDZPMjk0iJuaj0bMHA4W";
 let storedBreeds = [];
+let breed;
 
-breedSelect.addEventListener("click", showBreedInfo);
-
-function fetchCatByBreed() {
-   fetch(url, {headers: {
-         'x-api-key': api_key
+function fetchBreeds() {
+   fetch("https://api.thecatapi.com/v1/breeds", {headers: {
+      "x-api-key": "live_iTXFzPkHdC4oTgN59kH3GxZuT9eSiCYByP1BBv24lnnQqDZPMjk0iJuaj0bMHA4W"
    }})
    .then((response) => {
       return response.json();
    })
    .then((data) => {
-      
+
       //filter to only include those with an `image` object
       data = data.filter(img=> img.image?.url!=null)
-      
-   storedBreeds = data;
-      
+
+      storedBreeds = data;
+
       for (let i = 0; i < storedBreeds.length; i++) {
-      const breed = storedBreeds[i];
-      let option = document.createElement('option');
+         const breed = storedBreeds[i];
+         let option = document.createElement('option');
       
-      //skip any breeds that don't have an image
-      if(!breed.image) continue;
+         //skip any breeds that don't have an image
+         if(!breed.image)continue;
       
-      //use the current array index
-      option.value = i;
-      option.innerHTML = `${breed.name}`;
-      breedSelect.appendChild(option);
-      
+         //use the current array index
+         option.value = i;
+         option.innerHTML = `${breed.name}`;
+         breedSelect.appendChild(option);
       }
+      //show the first breed by default  
+      breedImage.src= storedBreeds[0].image.url;  
+      breedDescription.textContent= storedBreeds[0].description;
+      breedTemperament.textContent= storedBreeds[0].temperament;
    })
-   .catch(function(error) {
-      console.log(error);
+   .catch(function() {
+      error.classList.remove("hidden");
    });
 }
 
-function showBreedInfo() { 
-  loader.style.display = "none";
-  const selectBreedId = breedSelect.value;
-  fetchCatByBreed(selectBreedId).then(
-   data => {
-      const html = data.map (
-         cat =>
-            `
-            <li>
-               <img src="${cat.url}" alt="cat-image" width="300" />
-               <h2>${cat.breeds[0].name}</h2>
-               <p>${cat.breeds[0].name}</p>
-            </li>
-            `
-      ).join("");
-      catInfo.innerHTML = html;
-   }).catch(() => {
-      console.log("Oops! Something went wrong! Try reloading this page");
-   }).finally(
-      () => {
-         loader.style.display = "none";
-      }
-   );
+window.addEventListener("load", fetchBreeds);
+breedSelect.addEventListener("change", selectBreedFunction);
+
+function selectBreedFunction() {
+   index = breedSelect.value;
+
+   breedImage.src= storedBreeds[index].image.url;  
+   breedDescription.textContent= storedBreeds[index].description;
+   breedTemperament.textContent= storedBreeds[index].temperament;
 }
