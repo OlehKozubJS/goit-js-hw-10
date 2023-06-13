@@ -11,7 +11,7 @@ const breedTemperament = document.querySelector(".breed-temperament");
 import {selectBreeds} from "./cat-api";
 
 window.addEventListener("load", () => selectBreeds(breedSelect, loaderEl, errorEl));
-breedSelect.addEventListener("change", () => selectCat(breedSelect.value));
+breedSelect.addEventListener("change", e => selectCat(e.currentTarget.value));
 
 selectCat("abys");
 
