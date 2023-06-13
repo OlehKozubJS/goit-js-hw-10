@@ -11,7 +11,7 @@ const breedTemperament = document.querySelector(".breed-temperament");
 import {fetchBreeds} from "./cat-api";
 
 window.addEventListener("load", selectBreed);
-breedSelect.addEventListener("change",selectBreed);
+//breedSelect.addEventListener("change", breedOutput);
 
 function selectBreed(e) {
    fetch(url, {headers: {"x-api-key": api_key}})
@@ -25,15 +25,25 @@ function selectBreed(e) {
   
          let storedBreeds = fetchBreeds(breedSelect, data);
 
-         let index = e.type === "load" ? 0 : breedSelect.value;
+         //let index = e.type === "load" ? 0 : breedSelect.value;
 
-         breedImage.src= storedBreeds[index].image.url;  
-         breedDescription.textContent= storedBreeds[index].description;
-         breedTemperament.textContent= storedBreeds[index].temperament;
+         breedOutput(storedBreeds, 0);
          })
       .catch(function(error) {
          errorEl.classList.remove("hidden");
          console.log(error);
       }
    );
+}
+
+/*
+
+https://api.thecatapi.com/v1/images/search
+
+*/
+
+function breedOutput(breedArray, breedIndex) {
+   breedImage.src= breedArray[breedIndex].image.url;  
+   breedDescription.textContent= breedArray[breedIndex].description;
+   breedTemperament.textContent= breedArray[breedIndex].temperament;
 }
