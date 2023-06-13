@@ -11,7 +11,7 @@ export function selectBreeds(selector, loaderElem, errorElem) {
             loaderElem.classList.add("hidden");
             errorElem.classList.add("hidden");
     
-            let breeds = data.filter(img=> img.image?.url!=null)
+            let breeds = data.filter(img=> img.image?.url!=null);
  
             breeds.forEach(breed => {
                 let option = document.createElement('option');
