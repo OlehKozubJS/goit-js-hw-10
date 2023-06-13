@@ -17,6 +17,7 @@ body {
     border: 3px double darkgreen;
     border-radius: 5px;
 
+    text-align: center;
     color: darkgreen;
     font-family: inherit;
     font-size: inherit;
