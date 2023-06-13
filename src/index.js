@@ -16,9 +16,11 @@ import {fetchBreeds} from "./cat-api";
 function selectBreed(e) {
    fetch(url, {headers: {"x-api-key": api_key}})
       .then((response) => {
+            loaderEl.classList.remove("hidden");
             return response.json();
          })
       .then((data) => {
+         loaderEl.classList.add("hidden");
          errorEl.classList.add("hidden");
   
          let storedBreeds = fetchBreeds(breedSelect, data);

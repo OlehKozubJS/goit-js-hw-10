@@ -22,6 +22,11 @@ body {
     font-size: inherit;
 }
 
+.loader {
+    text-align: center;
+    color: green;
+}
+
 .error {
     text-align: center;
     color: red;
