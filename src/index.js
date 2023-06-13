@@ -10,11 +10,13 @@ const breedTemperament = document.querySelector(".breed-temperament");
 
 import {selectBreeds} from "./cat-api";
 
-window.addEventListener("load", () => selectBreeds(breedSelect, loaderEl, errorEl, breedImage, breedDescription, breedTemperament));
-breedSelect.addEventListener("change", selectCat);
+window.addEventListener("load", () => selectBreeds(breedSelect, loaderEl, errorEl));
+breedSelect.addEventListener("change", () => selectCat(breedSelect.value));
 
-function selectCat() {
-   fetch(catUrl + breedSelect.value, {headers: {"x-api-key": api_key}})
+selectCat("abys");
+
+function selectCat(catId) {
+   fetch(catUrl + catId, {headers: {"x-api-key": api_key}})
       .then((response) => {
             loaderEl.classList.remove("hidden");
             return response.json();
@@ -22,21 +24,16 @@ function selectCat() {
       .then((data) => {
          loaderEl.classList.add("hidden");
          errorEl.classList.add("hidden");
-  
-         console.log(data[0].breeds[0]);
-         //let breedData = data[0].breeds[0];
 
-         breedOutput(data[0].breeds[0]);
+         const breedData = data[0].breeds[0];
+
+         breedImage.src= `https://cdn2.thecatapi.com/images/${breedData.reference_image_id}.jpg`;   
+         breedDescription.textContent= breedData.description;
+         breedTemperament.textContent= breedData.temperament;
          })
       .catch(function(error) {
          errorEl.classList.remove("hidden");
          console.log(error);
       }
    );
-}
-
-function breedOutput(breedData) {
-   breedImage.src= `https://cdn2.thecatapi.com/images/${breedData.reference_image_id}.jpg`;   
-   breedDescription.textContent= breedData.description;
-   breedTemperament.textContent= breedData.temperament;
 }
