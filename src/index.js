@@ -8,10 +8,10 @@ const breedImage = document.querySelector(".breed-image");
 const breedDescription = document.querySelector(".breed-description");
 const breedTemperament = document.querySelector(".breed-temperament");
 
+import {fetchBreeds} from "./cat-api";
+
 window.addEventListener("load", selectBreed);
 breedSelect.addEventListener("change",selectBreed);
-
-import {fetchBreeds} from "./cat-api";
 
 function selectBreed(e) {
    fetch(url, {headers: {"x-api-key": api_key}})
