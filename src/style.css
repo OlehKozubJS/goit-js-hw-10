@@ -24,12 +24,12 @@ body {
 
 .loader {
     text-align: center;
-    color: green;
+    color: lightgreen;
 }
 
 .error {
     text-align: center;
-    color: red;
+    color: lightcoral;
 }
 
 .cat-info {
