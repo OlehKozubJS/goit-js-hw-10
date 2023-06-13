@@ -1,8 +1,6 @@
 const breedUrl = "https://api.thecatapi.com/v1/breeds";
 const api_key = "live_iTXFzPkHdC4oTgN59kH3GxZuT9eSiCYByP1BBv24lnnQqDZPMjk0iJuaj0bMHA4W";
 
-import { selectCat } from "./index";
-
 export function selectBreeds(selector, loaderElem, errorElem) {
     fetch(breedUrl, {headers: {"x-api-key": api_key}})
         .then((response) => {
