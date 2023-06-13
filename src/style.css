@@ -1,8 +1,58 @@
-.breed-image {
-    display: block;
-    width: 250px;
+body {
+    font-family: 'Parisienne', cursive;
+    font-size: 28px;
 }
 
 .hidden {
     display: none;
+}
+
+.breed-select {
+    display: block;
+    margin-inline: auto;
+
+    margin-bottom: 25px;
+
+    outline: none;
+    border: 3px double darkgreen;
+    border-radius: 5px;
+
+    color: darkgreen;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.error {
+    text-align: center;
+    color: red;
+}
+
+.cat-info {
+    margin-inline: auto;
+    width: 900px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.breed-image {
+    display: block;
+    border: 5px double blue;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.breed-text-info {
+    width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    color: darkblue;
+}
+
+.breed-temperament {
+    color: darkred;
 }
