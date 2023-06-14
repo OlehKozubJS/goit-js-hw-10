@@ -6,12 +6,12 @@ const loaderEl = document.querySelector(".loader");
 const errorEl = document.querySelector(".error");
 const catInfo = document.querySelector(".cat-info");
 
-import {selectBreeds} from "./cat-api";
+import {fetchBreeds} from "./cat-api";
 
-window.addEventListener("load", () => selectBreeds(breedSelect, loaderEl, errorEl));
-breedSelect.addEventListener("change", e => selectCat(e.currentTarget.value));
+window.addEventListener("load", () => fetchBreeds(breedSelect, loaderEl, errorEl));
+breedSelect.addEventListener("change", () => fetchCatByBreed(breedSelect.value));
 
-function selectCat(catId) {
+function fetchCatByBreed(catId) {
    fetch(catUrl + catId, {headers: {"x-api-key": api_key}})
       .then((response) => {
             loaderEl.classList.remove("hidden");
@@ -32,8 +32,5 @@ function selectCat(catId) {
          </div>
          `;
          })
-      .catch(function() {
-         errorEl.classList.remove("hidden");
-      }
-   );
+      .catch(() => {errorEl.classList.remove("hidden");});
 }
