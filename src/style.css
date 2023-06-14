@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+
 body {
-    font-family: 'Parisienne', cursive;
+    font-family: "Parisienne";
     font-size: 28px;
 }
 
