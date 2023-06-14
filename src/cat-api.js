@@ -7,7 +7,7 @@ export function fetchBreeds(selector, loaderElem, errorElem) {
              loaderElem.classList.remove("hidden");
              return response.json();
         })
-        .then(breeds => {
+        .then((breeds) => {
             loaderElem.classList.add("hidden");
             errorElem.classList.add("hidden");
      
@@ -18,7 +18,7 @@ export function fetchBreeds(selector, loaderElem, errorElem) {
                 selector.append(option);
             });      
         })
-        .catch(function() {
+        .catch(() => {
             errorElem.classList.remove("hidden");
         }
     );

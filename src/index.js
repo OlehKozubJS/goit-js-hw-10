@@ -20,17 +20,21 @@ function fetchCatByBreed(catId) {
       .then((data) => {
          loaderEl.classList.add("hidden");
          errorEl.classList.add("hidden");
+         catInfo.classList.remove("hidden");
 
          const breedData = data[0].breeds[0];
 
          catInfo.innerHTML = `
-         <div class="cat-info">
-         <img class="breed-image" src="https://cdn2.thecatapi.com/images/${breedData.reference_image_id}.jpg" alt="Cat Image">
-         <div class="breed-text-info">
-            <p class="breed-description">${breedData.description}</p>
-            <p class="breed-temperament">${breedData.temperament}</p>
-         </div>
+            <div class="cat-info-content">
+            <img class="breed-image" src="https://cdn2.thecatapi.com/images/${breedData.reference_image_id}.jpg" alt="Cat Image">
+            <div class="breed-text-info">
+               <p class="breed-description">${breedData.description}</p>
+               <p class="breed-temperament">${breedData.temperament}</p>
+            </div>
          `;
          })
-      .catch(() => {errorEl.classList.remove("hidden");});
+      .catch(() => {
+         catInfo.classList.add("hidden");
+         errorEl.classList.remove("hidden");
+      });
 }
