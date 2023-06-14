@@ -7,12 +7,10 @@ export function selectBreeds(selector, loaderElem, errorElem) {
              loaderElem.classList.remove("hidden");
              return response.json();
         })
-        .then((data) => {
+        .then(breeds => {
             loaderElem.classList.add("hidden");
             errorElem.classList.add("hidden");
-    
-            let breeds = data.filter(img=> img.image?.url!=null);
- 
+     
             breeds.forEach(breed => {
                 let option = document.createElement('option');
           
@@ -23,9 +21,8 @@ export function selectBreeds(selector, loaderElem, errorElem) {
                 }
             });      
         })
-        .catch(function(error) {
+        .catch(function() {
             errorElem.classList.remove("hidden");
-            console.log(error);
         }
     );
  }

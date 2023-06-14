@@ -4,16 +4,12 @@ const api_key = "live_iTXFzPkHdC4oTgN59kH3GxZuT9eSiCYByP1BBv24lnnQqDZPMjk0iJuaj0
 const breedSelect = document.querySelector(".breed-select");
 const loaderEl = document.querySelector(".loader");
 const errorEl = document.querySelector(".error");
-const breedImage = document.querySelector(".breed-image");
-const breedDescription = document.querySelector(".breed-description");
-const breedTemperament = document.querySelector(".breed-temperament");
+const catInfo = document.querySelector(".cat-info");
 
 import {selectBreeds} from "./cat-api";
 
 window.addEventListener("load", () => selectBreeds(breedSelect, loaderEl, errorEl));
 breedSelect.addEventListener("change", e => selectCat(e.currentTarget.value));
-
-selectCat("abys");
 
 function selectCat(catId) {
    fetch(catUrl + catId, {headers: {"x-api-key": api_key}})
@@ -27,13 +23,17 @@ function selectCat(catId) {
 
          const breedData = data[0].breeds[0];
 
-         breedImage.src= `https://cdn2.thecatapi.com/images/${breedData.reference_image_id}.jpg`;   
-         breedDescription.textContent= breedData.description;
-         breedTemperament.textContent= breedData.temperament;
+         catInfo.innerHTML = `
+         <div class="cat-info">
+         <img class="breed-image" src="https://cdn2.thecatapi.com/images/${breedData.reference_image_id}.jpg" alt="Cat Image">
+         <div class="breed-text-info">
+            <p class="breed-description">${breedData.description}</p>
+            <p class="breed-temperament">${breedData.temperament}</p>
+         </div>
+         `;
          })
-      .catch(function(error) {
+      .catch(function() {
          errorEl.classList.remove("hidden");
-         console.log(error);
       }
    );
 }
