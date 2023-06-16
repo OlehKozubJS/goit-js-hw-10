@@ -4,12 +4,16 @@ const api_key = "live_iTXFzPkHdC4oTgN59kH3GxZuT9eSiCYByP1BBv24lnnQqDZPMjk0iJuaj0
 export function fetchBreeds(selector, loaderElem, errorElem) {
     fetch(breedUrl, {headers: {"x-api-key": api_key}})
         .then((response) => {
-             loaderElem.classList.remove("hidden");
-             return response.json();
+            selector.classList.replace("visible", "hidden");
+            loaderElem.classList.replace("hidden", "visible");
+            errorElem.classList.replace("visible", "hidden");
+            
+            return response.json();
         })
         .then((breeds) => {
-            loaderElem.classList.add("hidden");
-            errorElem.classList.add("hidden");
+            selector.classList.replace("hidden", "visible");
+            loaderElem.classList.replace("visible", "hidden");
+            errorElem.classList.replace("visible", "hidden");
      
             breeds.forEach(breed => {
                 let option = document.createElement('option');          
@@ -19,7 +23,9 @@ export function fetchBreeds(selector, loaderElem, errorElem) {
             });      
         })
         .catch(() => {
-            errorElem.classList.remove("hidden");
+            selector.classList.replace("visible", "hidden");
+            loaderElem.classList.replace("visible", "hidden");
+            errorElem.classList.replace("hidden", "visible");
         }
     );
  }

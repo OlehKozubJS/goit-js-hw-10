@@ -14,14 +14,16 @@ breedSelect.addEventListener("change", () => fetchCatByBreed(breedSelect.value))
 function fetchCatByBreed(catId) {
    fetch(catUrl + catId, {headers: {"x-api-key": api_key}})
       .then((response) => {
-            catInfo.classList.add("hidden");
-            errorEl.classList.add("hidden");
-            loaderEl.classList.remove("hidden");
-            return response.json();
-         })
+         catInfo.classList.replace("visible", "hidden");
+         loaderEl.classList.replace("hidden", "visible");
+         errorEl.classList.replace("visible", "hidden");
+         
+         return response.json();
+      })
       .then((data) => {
-         loaderEl.classList.add("hidden");
-         catInfo.classList.remove("hidden");
+         catInfo.classList.replace("hidden", "visible");
+         loaderEl.classList.replace("visible", "hidden");
+         errorEl.classList.replace("visible", "hidden");
 
          const breedData = data[0].breeds[0];
 
@@ -35,7 +37,8 @@ function fetchCatByBreed(catId) {
          `;
          })
       .catch(() => {
-         catInfo.classList.add("hidden");
-         errorEl.classList.remove("hidden");
+         catInfo.classList.replace("visible", "hidden");
+         loaderEl.classList.replace("visible", "hidden");
+         errorEl.classList.replace("hidden", "visible");
       });
 }

@@ -9,8 +9,11 @@ body {
     display: none;
 }
 
-.breed-select {
+.visible {
     display: block;
+}
+
+.breed-select {
     margin-inline: auto;
 
     margin-bottom: 25px;
